@@ -3,6 +3,7 @@ import os
 import argparse
 from epub2txt import epub2txt
 import pyttsx3
+import math
 import subprocess
 from mutagen.mp3 import MP3
 from mutagen.id3 import ID3, TIT2, TPE1, TALB
@@ -89,7 +90,7 @@ def main():
             sys.exit(1)
 
     total_words = len(words)
-    num_parts = int(total_words / words_per_part)
+    num_parts = math.ceil(total_words / words_per_part)
 
     print(f"Text has {total_words} words, splitting into {num_parts} parts of up to {words_per_part} words each.")
 
