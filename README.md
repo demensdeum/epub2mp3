@@ -22,6 +22,8 @@ This script provides a quick and easy way to turn your e-books into audio files.
 * [Python](https://www.python.org/)
 * [epub2txt](https://pypi.org/project/epub2txt/)
 * [pyttsx3](https://pypi.org/project/pyttsx3/)
+* [FFmpeg] (https://ffmpeg.org/)
+* [mutagen] (https://pypi.org/project/mutagen/)
 
 ---
 
@@ -36,9 +38,9 @@ You need to have **Python** and **pip** installed. You will also need to install
 1.  Clone the repository or download the script to a local directory.
 2.  Install the required packages using pip:
     ```sh
-    pip install epub2txt pyttsx3
+    pip install epub2txt pyttsx3 mutagen
     ```
-
+3. Install FFmpeg and add to PATH
 ---
 
 ## 💻 Usage
