@@ -55,14 +55,36 @@ def convert_text_to_mp3(text, path, artist, album_title, track_title):
 
 
 def main():
-    WORDS_PER_MINUTE = 150
-
     parser = argparse.ArgumentParser(
         description="Convert an EPUB file to an MP3 audiobook.",
         formatter_class=argparse.RawTextHelpFormatter
     )
-    parser.add_argument("epub_path", help="Path to the input EPUB file.")
-    parser.add_argument("output_path", help="Path for the output MP3 file.\nIf --parts is used, this is the base name for the files (e.g., 'my_book.mp3').")
+    parser.add_argument(
+        "epub_path",
+        help="Path to the input EPUB file."
+    )
+    parser.add_argument(
+        "output_path",
+        help="Path for the output MP3 file.\nIf --parts is used, this is the base name for the files (e.g., 'my_book.mp3')."
+    )
+    parser.add_argument(
+        "--artist",
+        nargs='?',
+        default=None,
+        help=f"Artist metatag"
+    )
+    parser.add_argument(
+        "--album",
+        nargs='?',
+        default=None,
+        help=f"Album album metatag"
+    )
+    parser.add_argument(
+        "--track",
+        nargs='?',
+        default=None,
+        help=f"Track base metatag"
+    )
     parser.add_argument(
         "--parts",
         nargs='?',
@@ -117,8 +139,19 @@ def main():
         part_filename = f"{part_filename}{extension}"
 
         artist = "DemensDeum epub2mp3"
+        if args.artist != None:
+            artist = args.artist
+
         album_title = os.path.splitext(os.path.basename(base_path))[0]
+        if args.album != None:
+            album_title = args.album
+
         track_title = os.path.splitext(os.path.basename(part_filename))[0]
+        if args.track != None:
+            if num_parts == 1:
+                track_title = args.track
+            else:
+                track_title = f"{args.track} ({part_num})"
 
         convert_text_to_mp3(text_part, part_filename, artist, album_title, track_title)
 
