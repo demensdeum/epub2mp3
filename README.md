@@ -24,6 +24,7 @@ This script provides a quick and easy way to turn your e-books into audio files.
 * [pyttsx3](https://pypi.org/project/pyttsx3/)
 * [FFmpeg](https://ffmpeg.org/)
 * [mutagen](https://pypi.org/project/mutagen/)
+* [Gradio](https://www.gradio.app/)
 
 ---
 
@@ -60,6 +61,15 @@ The following source code is an **example** command. For full **license** detail
 # This is an example command.
 python epub_converter.py "example_book.epub" "example_audiobook.mp3"
 ```
+
+---
+
+**Web Interface:**
+```sh
+python web.py
+```
+
+Open browser at [http://127.0.0.1:7860/](http://127.0.0.1:7860/)
 
 ---
 

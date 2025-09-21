@@ -94,6 +94,14 @@ def main():
         help=f"Start word offset"
     )
     parser.add_argument(
+        "--end",
+        nargs='?',
+        default=None,
+        type=int,
+        metavar="END",
+        help=f"End word offset"
+    )
+    parser.add_argument(
         "--parts",
         nargs='?',
         const=4500,
@@ -116,7 +124,15 @@ def main():
         if word_offset < 0:
             print("Error: The value for --offset must be a positive number or zero.")
             sys.exit(1)
-    words = raw_words[word_offset:]
+
+    end_index = len(raw_words)
+    if args.offset is not None:
+        end_index = args.end
+        if end_index < 0:
+            print("Error: The value for --end must be a positive number or zero.")
+            sys.exit(1)
+
+    words = raw_words[word_offset:end_index]
 
     total_words = len(words)
     words_per_part = total_words
