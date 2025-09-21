@@ -86,6 +86,14 @@ def main():
         help=f"Track base metatag"
     )
     parser.add_argument(
+        "--offset",
+        nargs='?',
+        default=None,
+        type=int,
+        metavar="OFFSET",
+        help=f"Start word offset"
+    )
+    parser.add_argument(
         "--parts",
         nargs='?',
         const=4500,
@@ -101,7 +109,15 @@ def main():
     text_content = epub2txt(args.epub_path)
     print("Text extraction successful.")
 
-    words = text_content.split()
+    raw_words = text_content.split()
+    word_offset = 0
+    if args.offset is not None:
+        word_offset = args.offset
+        if word_offset < 0:
+            print("Error: The value for --offset must be a positive number or zero.")
+            sys.exit(1)
+    words = raw_words[word_offset:]
+
     total_words = len(words)
     words_per_part = total_words
 
@@ -114,7 +130,7 @@ def main():
     total_words = len(words)
     num_parts = math.ceil(total_words / words_per_part)
 
-    print(f"Text has {total_words} words, splitting into {num_parts} parts of up to {words_per_part} words each.")
+    print(f"Text has {total_words} words ({word_offset} offset), splitting into {num_parts} parts of up to {words_per_part} words each.")
 
     base_path, extension = os.path.splitext(args.output_path)
     if not extension:
